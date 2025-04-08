@@ -5,14 +5,14 @@ from pages.login_page import LoginPage
 from pages.forgot_password_page import ForgotPasswordPage
 
 
-@allure.feature('Восстановление пароля')
+@allure.feature('Страница восстановления пароля пароля')
 class TestRestorePassword:
     @allure.title('Кейс проверки переходов на страницу "Восстановление пароля"')
     @allure.description('В кейсе проверяются:'
                         '\n- Переход на страницу восстановления пароля по кнопке «Восстановить пароль»'
                         '\n- Ввод почты и клик по кнопке «Восстановить'
                         '\n- Клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его')
-    def test_password_recovery_and_show_hide_password_functionality_successfully_operations(self, driver):
+    def test_show_hide_password_functionality_successfully_operations(self, driver):
         # Arrange
         login_page = LoginPage(driver)
         login_page.open(urls.LOGIN_URL)
