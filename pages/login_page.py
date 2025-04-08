@@ -1,5 +1,4 @@
 import allure
-from selenium.common import NoSuchFrameException
 
 from data import LoginData
 from locators.login_page_locators import LoginPageLocators
@@ -10,7 +9,7 @@ class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @allure.step('Проверяем, что мы находимся на странице "Авторзация"')
+    @allure.step('Проверяем переход на страницу "Авторзация"')
     def login_title_is_present(self):
         return True if self.find_visability_element(*LoginPageLocators.LOGIN_TITLE) else False
 

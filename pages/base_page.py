@@ -1,8 +1,8 @@
 import allure
-
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
+
 from locators.base_page_locators import BasePageLocators
 
 
@@ -15,10 +15,15 @@ class BasePage:
     def open(self, url):
         self.driver.get(url)
 
+    def url_to_be(self, url):
+        try:
+            return WebDriverWait(self.driver, self.timeout).until(ec.url_to_be(url))
+        except TimeoutException:
+            raise TimeoutException(f'URL did not become: {url}')
+
     def find_clickable_element(self, how, what):
         try:
-            web_element = WebDriverWait(self.driver, self.timeout).until(ec.element_to_be_clickable((how, what)))
-            return web_element
+            return WebDriverWait(self.driver, self.timeout).until(ec.element_to_be_clickable((how, what)))
 
         except TimeoutException:
             raise TimeoutException(f'\nElement not clickable after {self.timeout} seconds')
@@ -27,8 +32,7 @@ class BasePage:
 
     def find_visability_element(self, how, what):
         try:
-            web_element = WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located((how, what)))
-            return web_element
+            return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located((how, what)))
 
         except TimeoutException:
             raise TimeoutException(f'\nElement not visability after {self.timeout} seconds')
