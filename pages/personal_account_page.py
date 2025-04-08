@@ -1,6 +1,6 @@
 import allure
 
-import urls
+from data import LoginData
 from locators.personal_account_page_locators import PersonalAccountPageSelectors
 from pages.base_page import BasePage
 
@@ -11,7 +11,8 @@ class PersonalAccountPage(BasePage):
 
     @allure.step('Проверяем переход на страницу профиля')
     def personal_account_page_is_present(self):
-        return True if self.url_to_be(urls.PROFILE_URL) else False
+        email = self.find_visability_element(*PersonalAccountPageSelectors.LABEL_LOGIN_USER).get_attribute('value')
+        return True if email == LoginData.DEFAULT_USER.get('email') else False
 
     @allure.step('Нажимаем на раздел "История заказов"')
     def click_to_orders_history(self):

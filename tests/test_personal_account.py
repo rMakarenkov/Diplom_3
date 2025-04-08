@@ -22,7 +22,7 @@ class TestPersonalAccount:
         home_page = HomePage(driver)
         home_page.click_button_link_personal_account()
         personal_account_page = PersonalAccountPage(driver)
-        assert personal_account_page.personal_account_page_is_present(), 'Unsuccessful transition to profile page'
+        assert personal_account_page.personal_account_page_is_present(), 'The displayed mail is not correct'
         personal_account_page.click_to_orders_history()
         assert personal_account_page.label_orders_history_is_illuminated(), ('Something went wrong when clicked '
                                                                              'on order history')
