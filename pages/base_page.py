@@ -1,12 +1,13 @@
 import allure
 
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.wait import WebDriverWait
+from locators.base_page_locators import BasePageLocators
 
 
 class BasePage:
-    def __init__(self, driver, timeout=5):
+    def __init__(self, driver, timeout=10):
         self.driver = driver
         self.timeout = timeout
 
@@ -43,3 +44,15 @@ class BasePage:
             raise TimeoutException(f'\nElement not visability after {self.timeout} seconds')
         except Exception as e:
             raise Exception(f'\nAn unexpected error occurred while scrolling to the element: {e}')
+
+    @allure.step('Нажимаем на кнопку "Конструктор" в заголовке страницы')
+    def click_button_link_constructor(self):
+        self.find_clickable_element(*BasePageLocators.BUTTON_CONSTRUCTOR).click()
+
+    @allure.step('Нажимаем на кнопку "Лента заказов" в заголовке страницы')
+    def click_button_link_order_feed(self):
+        self.find_clickable_element(*BasePageLocators.BUTTON_ORDER_FEED).click()
+
+    @allure.step('Нажимаем на кнопку "Личный кабинет в заголовке страницы')
+    def click_button_link_personal_account(self):
+        self.find_clickable_element(*BasePageLocators.BUTTON_PERSONAL_ACCOUNT).click()
