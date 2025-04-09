@@ -8,9 +8,9 @@ class PersonalAccountPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @allure.step('Проверяем успешность перехода на страницу профиля')
-    def find_user_email_and_return_current_url(self):
-        self.find_visability_element(*PersonalAccountPageSelectors.LABEL_LOGIN_USER)
+    @allure.step('Проверяем наличие справочной информации и возвращаем текущий URL')
+    def find_additional_info_and_return_current_url(self):
+        self.find_visability_element(*PersonalAccountPageSelectors.LABEL_ADDITIONAL_INFO)
         return self.get_current_url()
 
     @allure.step('Нажимаем на раздел "История заказов"')

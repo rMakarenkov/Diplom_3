@@ -4,7 +4,7 @@ from data import LoginData
 
 
 class PersonalAccountPageSelectors:
-    LABEL_LOGIN_USER = (By.XPATH, f"//input[@value='{LoginData.DEFAULT_USER.get('email')}']")
+    LABEL_ADDITIONAL_INFO = (By.CLASS_NAME, 'Account_text__fZAIn text text_type_main-default')
     LABEL_ORDERS_HISTORY = (By.XPATH, "//a[text()='История заказов']")
     LABEL_ORDERS_HISTORY_ACTIVE = (By.XPATH, "//a[text()='История заказов' and "
                                              "contains(@class,'Account_link_active__2opc9')]")
