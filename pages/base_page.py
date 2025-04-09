@@ -44,6 +44,12 @@ class BasePage:
         except TimeoutException:
             raise TimeoutException(f'\nElement not visability after {self.timeout} seconds')
 
+    def presence_of_elements(self, how, what):
+        try:
+            return WebDriverWait(self.driver, self.timeout).until(ec.presence_of_all_elements_located((how, what)))
+        except TimeoutException:
+            raise TimeoutException(f'\nElements not present after {self.timeout} seconds')
+
     def scroll_to_element(self, how, what):
         try:
             web_element = WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located((how, what)))

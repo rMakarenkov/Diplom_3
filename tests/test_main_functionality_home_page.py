@@ -7,7 +7,7 @@ from pages.home_page import HomePage
 
 
 @pytest.mark.home_page
-@allure.feature('Страница "Летна заказов"')
+@allure.feature('Страница "Главная" (конструктор)')
 class TestMainFunctionalityHomePage:
     @allure.title('Проверка перехода на главную страницу ("Конструктор")')
     def test_go_to_constructor_successful_transition(self, driver):
@@ -47,16 +47,16 @@ class TestMainFunctionalityHomePage:
     def test_add_ingredient_and_check_count_counter_increases(self, driver):
         home_page = HomePage(driver)
         home_page.open(urls.BASE_URL)
-        home_page.drag_element_in_basket()
+        home_page.drag_sauce_in_basket()
         first_addition = home_page.get_count_ingredients_in_basket()
-        home_page.drag_element_in_basket()
+        home_page.drag_sauce_in_basket()
         second_addition = home_page.get_count_ingredients_in_basket()
         assert second_addition > first_addition, 'The counter of items in the basket does not increase'
 
     @allure.title('Проверяем оформление заказа авторизованным пользователем')
     def test_create_order_user_authorized_successfull_created(self, driver, auth_default_user):
         home_page = HomePage(driver)
-        home_page.drag_element_in_basket()
+        home_page.drag_sauce_in_basket()
         home_page.click_button_place_order()
         actual_message = home_page.find_success_info_in_modal_window_order()
         expected_message = 'Ваш заказ начали готовить'

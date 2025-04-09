@@ -23,14 +23,18 @@ class HomePage(BasePage):
 
     @allure.step('Закрываем модальное окно')
     def click_on_cross_in_modal_window(self):
-        self.find_clickable_element(*HomePageLocators.BUTTON_CROSS).click()
+        self.find_clickable_element(*HomePageLocators.BUTTON_CROSS_MODAL_DETAIL).click()
 
     @allure.step('Проверяем, что модальное окно закрыто')
     def control_close_modal_window(self):
         return self.wait_element_disappears(*HomePageLocators.LABEL_MODAL_WINDOW)
 
-    @allure.step('Перетаскиваем ингредиент в корзину')
-    def drag_element_in_basket(self):
+    @allure.step('Перетаскиваем булочку в корзину')
+    def drag_bun_in_basket(self):
+        self.drag_and_drop(*HomePageLocators.IMG_BUN_INGREDIENT, *HomePageLocators.BASKET)
+
+    @allure.step('Перетаскиваем соус в корзину')
+    def drag_sauce_in_basket(self):
         self.drag_and_drop(*HomePageLocators.IMG_SAUCE_INGREDIENT, *HomePageLocators.BASKET)
 
     @allure.step('Получаем количество ингредиентов в корзине')
@@ -41,6 +45,11 @@ class HomePage(BasePage):
     def click_button_place_order(self):
         self.find_clickable_element(*HomePageLocators.BUTTON_PLACE_ORDER).click()
 
-    @allure.step('Проверяем .................')
+    @allure.step('Проверяем, что в модальном окне содержится текст начала приготовления заказа')
     def find_success_info_in_modal_window_order(self):
         return self.find_visability_element(*HomePageLocators.LABEL_SUCCESS_MESSAGE).text
+
+    @allure.step('Закрываем модальное окно заказа')
+    def click_cross_in_order_modal_window(self):
+        self.wait_element_disappears(*HomePageLocators.LOADING_MODAL_WINDOW_ORDER)
+        self.find_clickable_element(*HomePageLocators.BUTTON_CROSS_MODAL_ORDER).click()

@@ -33,4 +33,4 @@ class ForgotPasswordPage(BasePage):
 
     @allure.step('Проверяем, что поле "Пароль" является активным (подсвечивается)')
     def input_password_is_illuminated(self):
-        return True if self.find_visability_element(*ForgotPasswordPageLocators.ACTIVE_INPUT_PASSWORD) else False
+        return self.find_visability_element(*ForgotPasswordPageLocators.ACTIVE_INPUT_PASSWORD).is_displayed()

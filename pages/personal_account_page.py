@@ -20,3 +20,7 @@ class PersonalAccountPage(BasePage):
     @allure.step('Нажимаем на кнопку "Выход"')
     def click_logout(self):
         self.find_clickable_element(*PersonalAccountPageSelectors.BUTTON_LOGOUT).click()
+
+    @allure.step('Получаем номер последнего заказа в списке заказов личного кабинета')
+    def get_last_order_data(self):
+        return self.find_visability_element(*PersonalAccountPageSelectors.LAST_ORDER_NUMBER_IN_ACC).text
