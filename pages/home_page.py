@@ -9,5 +9,6 @@ class HomePage(BasePage):
         super().__init__(driver)
 
     @allure.step('Проверяем переход на главную страницу')
-    def home_page_title_is_present(self):
-        return True if self.find_visability_element(*HomePageLocators.TITLE_ASSEMBLE_BURGER) else False
+    def find_home_page_title_and_return_current_url(self):
+        self.find_visability_element(*HomePageLocators.TITLE_ASSEMBLE_BURGER)
+        return self.get_current_url()

@@ -10,8 +10,9 @@ class LoginPage(BasePage):
         super().__init__(driver)
 
     @allure.step('Проверяем переход на страницу "Авторзация"')
-    def login_title_is_present(self):
-        return True if self.find_visability_element(*LoginPageLocators.LOGIN_TITLE) else False
+    def find_login_title_and_return_current_url(self):
+        self.find_visability_element(*LoginPageLocators.LOGIN_TITLE)
+        return self.get_current_url()
 
     @allure.step('Заполняем поле "Email"')
     def set_email(self, ):
@@ -22,7 +23,7 @@ class LoginPage(BasePage):
         self.find_clickable_element(*LoginPageLocators.INPUT_PASSWORD).send_keys(LoginData.DEFAULT_USER.get('password'))
 
     @allure.step('Нажимаем кнопку "Войти"')
-    def press_button_login(self):
+    def click_button_login(self):
         self.find_clickable_element(*LoginPageLocators.BUTTON_LOGIN).click()
 
     @allure.step('Нажимаем на кнопку-ссылку "Восстановить пароль"')
@@ -31,9 +32,6 @@ class LoginPage(BasePage):
 
     @allure.step('Выполняем авторизацию пользователя')
     def authorization_user(self):
-        if self.login_title_is_present():
-            self.set_email()
-            self.set_password()
-            self.press_button_login()
-        else:
-            raise Exception('Failed to authorize user')
+        self.set_email()
+        self.set_password()
+        self.click_button_login()

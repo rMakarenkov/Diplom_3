@@ -2,7 +2,6 @@ import allure
 import pytest
 
 import urls
-from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.personal_account_page import PersonalAccountPage
 
@@ -10,21 +9,26 @@ from pages.personal_account_page import PersonalAccountPage
 @pytest.mark.perosnal_account_page
 @allure.feature('Личный кабинет')
 class TestPersonalAccount:
-    @allure.title('Проверка доступности элементов личного кабинета и выход из аккаунта')
-    @allure.description('В кейсе проверяются:'
-                        '\n- Переход по клику на «Личный кабинет»'
-                        '\n- Переход в раздел «История заказов»'
-                        '\n- Выход из аккаунта')
-    def test_show_tabs_personal_account_and_logout_successfully_operations(self, driver):
-        login_page = LoginPage(driver)
-        login_page.open(urls.LOGIN_URL)
-        login_page.authorization_user()
-        home_page = HomePage(driver)
-        home_page.click_button_link_personal_account()
+    @allure.title('Проверка перехода в личный кабинет через кнопку в хедере')
+    def test_go_to_personal_account_page_successful_transition(self, driver, login):
         personal_account_page = PersonalAccountPage(driver)
-        assert personal_account_page.personal_account_page_is_present(), 'The displayed mail is not correct'
-        personal_account_page.click_to_orders_history()
-        assert personal_account_page.label_orders_history_is_illuminated(), ('Something went wrong when clicked '
-                                                                             'on order history')
-        personal_account_page.logout()
-        assert login_page.login_title_is_present(), 'Incorrect redirect after logout'
+        personal_account_page.click_button_link_personal_account()
+        current_url = personal_account_page.find_user_email_and_return_current_url()
+        assert current_url == urls.PROFILE_URL, f'Actual url {current_url} not match expected url {urls.PROFILE_URL}'
+
+    @allure.title('Проверка перехода в раздел "История заказов"')
+    def test_go_to_orders_history_successful_transition(self, driver, login):
+        personal_account_page = PersonalAccountPage(driver)
+        personal_account_page.click_button_link_personal_account()
+        personal_account_page.click_orders_history()
+        current_url = personal_account_page.get_current_url()
+        assert current_url == urls.PROFILE_ORDERS_HISTORY_URL, f'Actual url {current_url} not match expected url {urls.PROFILE_ORDERS_HISTORY_URL}'
+
+    @allure.title('Проверяем выход из профиля')
+    def test_logout_personal_account_successful_logout(self, driver, login):
+        personal_account_page = PersonalAccountPage(driver)
+        personal_account_page.click_button_link_personal_account()
+        personal_account_page.click_logout()
+        login_page = LoginPage(driver)
+        current_url = login_page.find_login_title_and_return_current_url()
+        assert current_url == urls.LOGIN_URL, f'Actual url {current_url} not match expected url {urls.LOGIN_URL}'

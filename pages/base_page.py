@@ -7,13 +7,23 @@ from locators.base_page_locators import BasePageLocators
 
 
 class BasePage:
-    def __init__(self, driver, timeout=10):
+    def __init__(self, driver, timeout=20):
         self.driver = driver
         self.timeout = timeout
 
     @allure.step('Открываем страницу: {url}')
     def open(self, url):
         self.driver.get(url)
+
+    @allure.step('Получаем текущий URL')
+    def get_current_url(self):
+        return self.driver.current_url
+
+    def wait_modal_disappears(self, how, what):
+        try:
+            return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located((how, what)))
+        except TimeoutException:
+            raise TimeoutException('Modal window did not hide')
 
     def url_to_be(self, url):
         try:
@@ -24,30 +34,21 @@ class BasePage:
     def find_clickable_element(self, how, what):
         try:
             return WebDriverWait(self.driver, self.timeout).until(ec.element_to_be_clickable((how, what)))
-
         except TimeoutException:
             raise TimeoutException(f'\nElement not clickable after {self.timeout} seconds')
-        except Exception as e:
-            raise Exception(f'\nAn error occurred while finding the clickable element: {e}')
 
     def find_visability_element(self, how, what):
         try:
             return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located((how, what)))
-
         except TimeoutException:
             raise TimeoutException(f'\nElement not visability after {self.timeout} seconds')
-        except Exception as e:
-            raise Exception(f'\nAn error occurred while finding the visability element: {e}')
 
     def scroll_to_element(self, how, what):
         try:
             web_element = WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located((how, what)))
             return self.driver.execute_script('arguments[0].scrollIntoView();', web_element)
-
         except TimeoutException:
             raise TimeoutException(f'\nElement not visability after {self.timeout} seconds')
-        except Exception as e:
-            raise Exception(f'\nAn unexpected error occurred while scrolling to the element: {e}')
 
     @allure.step('Нажимаем на кнопку "Конструктор" в заголовке страницы')
     def click_button_link_constructor(self):
