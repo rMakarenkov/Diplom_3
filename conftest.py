@@ -14,10 +14,12 @@ def driver(request):
     driver = None
     if request.param == 'chrome':
         chrome_options = ChromeOptions()
+        chrome_options.add_argument('--headless')
         driver = webdriver.Chrome(options=chrome_options)
         driver.set_window_size(1920, 1080)
     elif request.param == 'firefox':
         firefox_options = FirefoxOptions()
+        firefox_options.add_argument('--headless')
         driver = webdriver.Firefox(options=firefox_options)
         driver.set_window_size(1920, 1080)
     yield driver
@@ -25,7 +27,7 @@ def driver(request):
 
 
 @pytest.fixture(scope='function')
-def login(driver):
+def auth_default_user(driver):
     account = LoginPage(driver)
     account.open(urls.LOGIN_URL)
     account.authorization_user()

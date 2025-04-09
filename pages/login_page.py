@@ -27,7 +27,7 @@ class LoginPage(BasePage):
         self.find_clickable_element(*LoginPageLocators.BUTTON_LOGIN).click()
 
     @allure.step('Нажимаем на кнопку-ссылку "Восстановить пароль"')
-    def click_button_link_restore_password(self):
+    def click_restore_password(self):
         self.find_clickable_element(*LoginPageLocators.FORGOT_PASSWORD_LINK_BUTTON).click()
 
     @allure.step('Выполняем авторизацию пользователя')

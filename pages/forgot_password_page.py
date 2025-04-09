@@ -9,9 +9,9 @@ class ForgotPasswordPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @allure.title('Проверяем наличие кнопки "Сохранить" на странице сброса пароля')
-    def find_button_save_password_and_return_current_url(self):
-        self.find_clickable_element(*ForgotPasswordPageLocators.BUTTON_SAVE)
+    @allure.title('Проверяем наличие кнопки "Восстановить" и возвращаем текущий URL')
+    def find_button_restore_and_return_current_url(self):
+        self.find_clickable_element(*ForgotPasswordPageLocators.BUTTON_RESTORE)
         return self.get_current_url()
 
     @allure.step('Вводим адрес электронной почты {email}')
@@ -21,6 +21,11 @@ class ForgotPasswordPage(BasePage):
     @allure.step('Нажимаем на кнопку "Восстановить"')
     def press_the_restore_button(self):
         self.find_clickable_element(*ForgotPasswordPageLocators.BUTTON_RESTORE).click()
+
+    @allure.title('Проверяем наличие кнопки "Сохранить" и возвращаем текущий URL')
+    def find_button_save_and_return_current_url(self):
+        self.find_clickable_element(*ForgotPasswordPageLocators.BUTTON_SAVE)
+        return self.get_current_url()
 
     @allure.step('Нажимаем на кнопку "показать/скрыть" пароль')
     def press_the_show_hide_button(self):
