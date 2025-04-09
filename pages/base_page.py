@@ -21,7 +21,7 @@ class BasePage:
 
     def wait_modal_disappears(self, how, what):
         try:
-            return WebDriverWait(self.driver, timeout=20).until(ec.invisibility_of_element_located((how, what)))
+            return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located((how, what)))
         except TimeoutException:
             raise TimeoutException(f'Modal window did not hide after {self.timeout} seconds')
 
