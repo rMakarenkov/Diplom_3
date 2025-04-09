@@ -7,7 +7,7 @@ from pages.login_page import LoginPage
 
 
 @pytest.mark.forgot_password_page
-@allure.feature('Страница восстановления пароля')
+@allure.feature('Страница "Восстановление пароля"')
 class TestForgotPassword:
     @allure.title('Проверка перехода на страницу "Восстановление пароля" со страницы "Авторизация"')
     def test_go_to_password_recovery_page_successful_transition(self, driver):

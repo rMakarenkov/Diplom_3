@@ -7,7 +7,7 @@ from pages.personal_account_page import PersonalAccountPage
 
 
 @pytest.mark.perosnal_account_page
-@allure.feature('Личный кабинет')
+@allure.feature('Страница "Личный кабинет"')
 class TestPersonalAccount:
     @allure.title('Проверка перехода в личный кабинет через кнопку в хедере')
     def test_go_to_personal_account_page_successful_transition(self, driver, auth_default_user):

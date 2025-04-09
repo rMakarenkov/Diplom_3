@@ -1,5 +1,6 @@
 import allure
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -19,7 +20,7 @@ class BasePage:
     def get_current_url(self):
         return self.driver.current_url
 
-    def wait_modal_disappears(self, how, what):
+    def wait_element_disappears(self, how, what):
         try:
             return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located((how, what)))
         except TimeoutException:
@@ -49,6 +50,16 @@ class BasePage:
             return self.driver.execute_script('arguments[0].scrollIntoView();', web_element)
         except TimeoutException:
             raise TimeoutException(f'\nElement not visability after {self.timeout} seconds')
+
+    def drag_and_drop(self, how_s, what_s, how_t, what_t):
+        source = self.find_clickable_element(how_s, what_s)
+        target = self.find_visability_element(how_t, what_t)
+        actions = ActionChains(self.driver)
+        actions.drag_and_drop(source, target).perform()
+
+    def get_count_elements(self, how, what):
+        count = len(self.driver.find_elements(how, what))
+        return count
 
     @allure.step('Нажимаем на кнопку "Конструктор" в заголовке страницы')
     def click_button_link_constructor(self):
