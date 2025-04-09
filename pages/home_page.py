@@ -49,7 +49,23 @@ class HomePage(BasePage):
     def find_success_info_in_modal_window_order(self):
         return self.find_visability_element(*HomePageLocators.LABEL_SUCCESS_MESSAGE).text
 
+    @allure.step('Ждем полного формирования модального окна заказа')
+    def wait_order_modal_loaded(self):
+        self.wait_element_disappears(*HomePageLocators.LOADING_MODAL_WINDOW_ORDER)
+
+    @allure.step('Получаем идентификатор заказа')
+    def get_order_id(self):
+        return self.find_visability_element(*HomePageLocators.ORDER_ID_MODAL_WINDOW).text
+
     @allure.step('Закрываем модальное окно заказа')
     def click_cross_in_order_modal_window(self):
-        self.wait_element_disappears(*HomePageLocators.LOADING_MODAL_WINDOW_ORDER)
         self.find_clickable_element(*HomePageLocators.BUTTON_CROSS_MODAL_ORDER).click()
+
+    @allure.step('Оформляем заказ')
+    def make_order(self):
+        self.drag_bun_in_basket()
+        self.click_button_place_order()
+        self.wait_order_modal_loaded()
+        order_id = self.get_order_id()
+        self.click_cross_in_order_modal_window()
+        return order_id

@@ -38,6 +38,12 @@ class BasePage:
         except TimeoutException:
             raise TimeoutException(f'\nElement not clickable after {self.timeout} seconds')
 
+    def text_present_in_element(self, how, what, text):
+        try:
+            return WebDriverWait(self.driver, self.timeout).until(ec.text_to_be_present_in_element((how, what), text))
+        except TimeoutException:
+            raise TimeoutException(f'\nElement not present in element after {self.timeout} seconds')
+
     def find_visability_element(self, how, what):
         try:
             return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located((how, what)))

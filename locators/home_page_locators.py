@@ -14,4 +14,5 @@ class HomePageLocators:
 
     LABEL_SUCCESS_MESSAGE = (By.CSS_SELECTOR, '.undefined.text.text_type_main-small.mb-2')
     LOADING_MODAL_WINDOW_ORDER = (By.XPATH, "//div[@class='Modal_modal_opened__3ISw4 Modal_modal__P3_V5']")
+    ORDER_ID_MODAL_WINDOW = (By.CSS_SELECTOR, '.Modal_modal__title_shadow__3ikwq.Modal_modal__title__2L34m.text.text_type_digits-large.mb-8')
     BUTTON_CROSS_MODAL_ORDER = (By.XPATH, "//button[@class='Modal_modal__close_modified__3V5XS Modal_modal__close__TnseK']")

@@ -35,7 +35,7 @@ class TestMainFunctionalityHomePage:
         actual_text = home_page.find_title_modal_window_and_return_text()
         assert actual_text == expected_text, f'Actual text {actual_text} not match expected text {expected_text}'
 
-    @allure.title('Проверяем закрытие модального окна с доп. инфомрацией об ингредиенте при нажатии на крестик')
+    @allure.title('Проверяем закрытие модального окна с доп. информацией об ингредиенте при нажатии на крестик')
     def test_close_modal_window_after_click_cross_successfull_closed(self, driver):
         home_page = HomePage(driver)
         home_page.open(urls.BASE_URL)

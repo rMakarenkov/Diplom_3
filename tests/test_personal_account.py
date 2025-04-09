@@ -6,7 +6,7 @@ from pages.login_page import LoginPage
 from pages.personal_account_page import PersonalAccountPage
 
 
-@pytest.mark.perosnal_account_page
+@pytest.mark.personal_account_page
 @allure.feature('Страница "Личный кабинет"')
 class TestPersonalAccount:
     @allure.title('Проверка перехода в личный кабинет через кнопку в хедере')

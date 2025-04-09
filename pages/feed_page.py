@@ -23,5 +23,17 @@ class FeedPage(BasePage):
 
     @allure.step('Просматриваем последние заказы и проверяем наличие искомого')
     def find_target_order_in_history(self, target_order):
-        orders = self.presence_of_elements(*FeedPageLocators.LAST_50_ORDERS_NUMBERS)
+        orders = self.presence_of_elements(*FeedPageLocators.LAST_50_ORDERS)
         return any(target_order == order.text for order in orders)
+
+    @allure.step('Получаем количество выполненных заказов за все время')
+    def get_number_total_orders_in_history(self):
+        return self.find_visability_element(*FeedPageLocators.TOTAL_ORDERS).text
+
+    @allure.step('Получаем количество выполненныз заказов за сегодняшний день')
+    def get_number_orders_today(self):
+        return self.find_visability_element(*FeedPageLocators.TODAY_ORDERS).text
+
+    @allure.step('Проверяем наличие заказа в списке "В работе"')
+    def check_order_in_progress(self, order_id):
+        return self.text_present_in_element(*FeedPageLocators.ORDERS_IN_PROGRESS, order_id)

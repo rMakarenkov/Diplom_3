@@ -9,7 +9,7 @@ class ForgotPasswordPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @allure.title('Проверяем наличие кнопки "Восстановить" и возвращаем текущий URL')
+    @allure.step('Проверяем наличие кнопки "Восстановить" и возвращаем текущий URL')
     def find_button_restore_and_return_current_url(self):
         self.find_clickable_element(*ForgotPasswordPageLocators.BUTTON_RESTORE)
         return self.get_current_url()
